@@ -13,9 +13,10 @@ RUN apt-get update && \
 
 RUN useradd --system --uid 666 -M --shell /usr/sbin/nologin tor
 
-ADD ./torrc /etc/tor/torrc
+COPY ./torrc /etc/tor/torrc
+COPY main.sh /
 
 USER tor
 
-COPY main.sh /
-CMD ["/main.sh"]
+ENTRYPOINT ["/main.sh"]
+CMD ["default"]
