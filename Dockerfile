@@ -16,6 +16,11 @@ RUN useradd --system --uid 666 -M --shell /usr/sbin/nologin tor
 COPY ./torrc /etc/tor/torrc
 COPY main.sh /
 
+RUN mkdir /web && \
+    chown tor /web
+
+VOLUME /web
+
 USER tor
 
 ENTRYPOINT ["/main.sh"]
