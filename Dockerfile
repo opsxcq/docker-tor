@@ -17,4 +17,5 @@ ADD ./torrc /etc/tor/torrc
 
 USER tor
 
+COPY main.sh /
 CMD ["/main.sh"]
