@@ -17,7 +17,7 @@ COPY ./torrc /etc/tor/torrc
 COPY main.sh /
 
 RUN mkdir /web && \
-    chown tor /web
+    chown -R tor /web /etc/tor
 
 VOLUME /web
 
