@@ -17,8 +17,4 @@ Log notice stdout
 EOF
 fi
 
-cat /etc/tor/torrc
-
-cat /web/private_key
-
 tor -f /etc/tor/torrc
