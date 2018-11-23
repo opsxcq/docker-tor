@@ -24,7 +24,7 @@ docker run -it --rm --entrypoint shallot strm/tor-hiddenservice-nginx <pattern>
 The `pattern` argument above is a regular expression of your desired address.
 
 ``` shellsession
-#docker run -it --rm --entrypoint shallot strm/tor-hiddenservice-nginx ^hid
+$docker run -it --rm --entrypoint shallot strm/tor-hiddenservice-nginx ^hid
 --------------------------------------------------------------
 Found matching domain after 5519 tries: hidwuvo75a7aqm35.onion
 --------------------------------------------------------------
