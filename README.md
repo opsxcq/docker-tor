@@ -12,6 +12,8 @@ custom hidden services in the deepweb.
 - `LISTEN_PORT` - Port that the hidden service will listen to
 - `REDIRECT` - To where the Tor will redirect the traffic (your server), in the
   format `host:port`.
+- `PROXY_PORT` - If you want to enable Tor Proxy Socks, use this variable to set
+  which port you want tor listening to.
 
 # Generating a private key
 

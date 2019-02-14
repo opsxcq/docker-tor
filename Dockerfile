@@ -13,7 +13,6 @@ RUN apt-get update && \
 
 RUN useradd --system --uid 666 -M --shell /usr/sbin/nologin tor
 
-COPY ./torrc /etc/tor/torrc
 COPY main.sh /
 
 RUN mkdir /web && \

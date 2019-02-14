@@ -1,4 +1,0 @@
-DataDirectory /tmp/tor
-HiddenServiceDir /web/
-HiddenServicePort 80 webserver:8080
-Log notice stdout 
