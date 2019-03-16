@@ -9,9 +9,11 @@ custom hidden services in the deepweb.
 # Variables
 
 - `PRIVATE_KEY` - Private key to be used by the hidden service.
+- `PRIVATE_KEY_FILE` Path to private key file for use with docker secrets.
 - `LISTEN_PORT` - Port that the hidden service will listen to
 - `REDIRECT` - To where the Tor will redirect the traffic (your server), in the
   format `host:port`.
+- `SERVICES` - Define multiple services in the format public_port:host:host_port
 - `PROXY_PORT` - If you want to enable Tor Proxy Socks, use this variable to set
   which port you want tor listening to.
 
