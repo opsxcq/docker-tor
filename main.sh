@@ -11,10 +11,17 @@ HiddenServiceDir /web/
 Log notice stdout
 EOF
 
-if [[ ! -z "${PRIVATE_KEY}" && ! -z "${LISTEN_PORT}" && ! -z "${REDIRECT}" ]]
+if [[ ( ! -z "${PRIVATE_KEY}" || ! -z "${PRIVATE_KEY_FILE}" ) && ! -z "${LISTEN_PORT}" && ! -z "${REDIRECT}" ]]
 then
     echo "[+] Starting the listener at port ${LISTEN_PORT}, redirecting to ${REDIRECT}"
-    echo "${PRIVATE_KEY}" > /web/private_key
+
+    if [[ ! -z "${PRIVATE_KEY_FILE}" ]]
+    then
+        ln -s -f "${PRIVATE_KEY_FILE}" /web/private_key
+    else
+        echo "${PRIVATE_KEY}" > /web/private_key
+    fi
+
     cat >> /etc/tor/torrc << EOF
 HiddenServicePort ${LISTEN_PORT} ${REDIRECT}
 EOF
