@@ -11,20 +11,30 @@ HiddenServiceDir /web/
 Log notice stdout
 EOF
 
-if [[ ( ! -z "${PRIVATE_KEY}" || ! -z "${PRIVATE_KEY_FILE}" ) && ! -z "${LISTEN_PORT}" && ! -z "${REDIRECT}" ]]
-then
-    echo "[+] Starting the listener at port ${LISTEN_PORT}, redirecting to ${REDIRECT}"
+if [[ ! -z "${PRIVATE_KEY_FILE}" ]]; then
+    ln -s -f "${PRIVATE_KEY_FILE}" /web/private_key
+elif [[ ! -z "${PRIVATE_KEY}" ]]; then
+    echo "${PRIVATE_KEY}" > /web/private_key
+fi
 
-    if [[ ! -z "${PRIVATE_KEY_FILE}" ]]
-    then
-        ln -s -f "${PRIVATE_KEY_FILE}" /web/private_key
-    else
-        echo "${PRIVATE_KEY}" > /web/private_key
-    fi
-
+function add_service {
+    echo "[+] Adding listener at port $2, redirecting to $1"
     cat >> /etc/tor/torrc << EOF
-HiddenServicePort ${LISTEN_PORT} ${REDIRECT}
+HiddenServicePort $2 $1
 EOF
+}
+
+if [[ ! -z "${LISTEN_PORT}" && ! -z "${REDIRECT}" ]]; then
+    add_service ${REDIRECT} ${LISTEN_PORT}
+fi
+
+if [[ ! -z "${SERVICES}" ]]; then
+    SERVICES=(${SERVICES//;/ })
+    for service in "${SERVICES[@]}"; do
+        service_data=(${service//:/ })
+        add_service "${service_data[1]}:${service_data[2]}" ${service_data[0]}
+    done
+    
 fi
 
 if [[ ! -z "${PROXY_PORT}" ]]
