@@ -81,6 +81,32 @@ services:
           -----END RSA PRIVATE KEY-----
 ```
 
+# Example with secrets
+
+Store the private key in `tor.key` next to this `docker-compose.yml`:
+
+```yml
+version: '3.1'
+
+services:
+   tor:
+     image: strm/tor
+     depends_on:
+         - nginx
+     environment:
+        SERVICES: "80:nginx:80;8080:nginx:80"
+        PRIVATE_KEY_FILE: /run/secrets/torkey
+     secrets:
+         - torkey
+        
+   nginx:
+       image: nginx
+
+secrets:
+   torkey:
+     file: tor.key
+```
+
 ### Disclaimer
 
 This or previous program is for Educational purpose ONLY. Do not use it without
